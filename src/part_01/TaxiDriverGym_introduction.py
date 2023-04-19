@@ -34,4 +34,6 @@ print(env.render())
 # 4 = pickup
 # 5 = dropoff
 
+print(env.step(0))
+
 env.close()

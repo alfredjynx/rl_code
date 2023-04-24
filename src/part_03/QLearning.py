@@ -1,7 +1,6 @@
 import numpy as np
 import random
 from numpy import savetxt
-import pandas as pd
 import sys
 import matplotlib.pyplot as plt
 
@@ -30,7 +29,6 @@ class QLearning:
 
     def train(self, filename, plotFile):
         actions_per_episode = []
-
         for i in range(1, self.episodes+1):
             (state, _) = self.env.reset()
             # rewards = 0
@@ -50,7 +48,6 @@ class QLearning:
                 state = next_state
                 actions=actions+1
                 # rewards=rewards+reward
-            
 
             actions_per_episode.append(actions)
             if i % 100 == 0:
@@ -62,10 +59,6 @@ class QLearning:
 
         savetxt(filename, self.q_table, delimiter=',')
         if (plotFile is not None): self.plotactions(plotFile, actions_per_episode)
-
-        df = pd.DataFrame({'Episodes':[i for i in range(1,self.episodes+1)],'Actions':actions_per_episode})
-        df.to_csv(f'data/QLearning/alpha{self.alpha}-gamma{self.gamma}.csv')
-        
         return self.q_table
 
     def plotactions(self, plotFile, actions_per_episode):
@@ -75,6 +68,5 @@ class QLearning:
         plt.title('# Actions vs Episodes')
         plt.savefig(plotFile+".jpg")     
         plt.close()
-    
-    
+
 
